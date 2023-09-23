@@ -1,4 +1,5 @@
 import 'package:dashboard/theme/box_icons_icons.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Menu extends StatelessWidget {
@@ -116,7 +117,7 @@ class Menu extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(right: 20.0),
                           child: Icon(
-                            BoxIcons.bx_home_circle,
+                            CupertinoIcons.home,
                             color: Colors.white,
                           ),
                         ),
@@ -139,7 +140,7 @@ class Menu extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(right: 20.0),
                           child: Icon(
-                            BoxIcons.bx_edit,
+                            CupertinoIcons.pencil,
                             color: Colors.white,
                           ),
                         ),
@@ -162,7 +163,7 @@ class Menu extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(right: 20.0),
                           child: Icon(
-                            BoxIcons.bx_book_alt,
+                            CupertinoIcons.book,
                             color: Colors.white,
                           ),
                         ),
@@ -185,7 +186,7 @@ class Menu extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(right: 20.0),
                           child: Icon(
-                            BoxIcons.bx_chat,
+                            CupertinoIcons.chat_bubble,
                             color: Colors.white,
                           ),
                         ),
@@ -208,7 +209,7 @@ class Menu extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(right: 20.0),
                           child: Icon(
-                            BoxIcons.bx_calendar,
+                            CupertinoIcons.calendar,
                             color: Colors.white,
                           ),
                         ),
@@ -239,7 +240,7 @@ class Menu extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(right: 20.0),
                           child: Icon(
-                            BoxIcons.bx_cog,
+                            CupertinoIcons.settings,
                             color: Colors.white,
                           ),
                         ),

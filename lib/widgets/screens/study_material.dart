@@ -1,10 +1,5 @@
 import 'package:flutter/cupertino.dart';
-
-void main() {
-  runApp(const CupertinoApp(
-    home: StudyMaterialApp(),
-  ));
-}
+import 'package:flutter/material.dart';
 
 class StudyMaterialApp extends StatefulWidget {
   const StudyMaterialApp({Key? key}) : super(key: key);
@@ -16,40 +11,144 @@ class StudyMaterialApp extends StatefulWidget {
 class _StudyMaterialAppState extends State<StudyMaterialApp> {
   List<StudyMaterial> studyMaterials = [
     StudyMaterial(
-      category: 'Cybersecurity',
-      title: 'Intro to Cybersecurity',
-      description: 'Learn the basics of cybersecurity.',
-    ),
-    StudyMaterial(
-      category: 'Cybersecurity',
-      title: 'Network Security',
-      description: 'Explore network security concepts.',
-    ),
-    StudyMaterial(
-      category: '3D Animation',
-      title: '3D Modeling Techniques',
+      category: 'Programming',
+      title: 'Learn the Basics',
       description: 'Master 3D modeling for animation.',
+      duration: '4 weeks',
+      steps: [
+        'Step 1: Introduction',
+        'Step 2: Basic Principles',
+        'Step 3: Advanced Topics'
+      ],
     ),
     StudyMaterial(
-      category: '3D Animation',
-      title: 'Animation Principles',
+      category: 'Programming',
+      title: 'Data Structures and Algorithms',
       description: 'Learn animation principles and techniques.',
+      duration: '4 weeks',
+      steps: [
+        'Step 1: Introduction',
+        'Step 2: Basic Principles',
+        'Step 3: Advanced Topics'
+      ],
+    ),
+    StudyMaterial(
+      category: 'Programming',
+      title: 'Projects and Practice',
+      description: 'Learn animation principles and techniques.',
+      duration: '4 weeks',
+      steps: [
+        'Step 1: Introduction',
+        'Step 2: Basic Principles',
+        'Step 3: Advanced Topics'
+      ],
     ),
     StudyMaterial(
       category: 'Designing',
       title: 'Graphic Design Fundamentals',
       description: 'Get started with graphic design.',
+      duration: '4 weeks',
+      steps: [
+        'Step 1: Introduction',
+        'Step 2: Basic Principles',
+        'Step 3: Advanced Topics'
+      ],
     ),
     StudyMaterial(
       category: 'Designing',
       title: 'UI/UX Design',
       description: 'Learn user interface and user experience design.',
+      duration: '4 weeks',
+      steps: [
+        'Step 1: Introduction',
+        'Step 2: Basic Principles',
+        'Step 3: Advanced Topics'
+      ],
+    ),
+    StudyMaterial(
+      category: 'Cybersecurity',
+      title: 'Network Security',
+      description: 'Explore network security concepts.',
+      duration: '4 weeks',
+      steps: [
+        'Step 1: Introduction',
+        'Step 2: Basic Principles',
+        'Step 3: Advanced Topics'
+      ],
+    ),
+    // Add more study materials here
+  ];
+
+  List<StudyMaterial> filteredStudyMaterials = [
+    StudyMaterial(
+      category: 'Programming',
+      title: 'Learn the Basics',
+      description: 'Master 3D modeling for animation.',
+      duration: '4 weeks',
+      steps: [
+        'Step 1: Introduction',
+        'Step 2: Basic Principles',
+        'Step 3: Advanced Topics'
+      ],
+    ),
+    StudyMaterial(
+      category: 'Programming',
+      title: 'Data Structures and Algorithms',
+      description: 'Learn animation principles and techniques.',
+      duration: '4 weeks',
+      steps: [
+        'Step 1: Introduction',
+        'Step 2: Basic Principles',
+        'Step 3: Advanced Topics'
+      ],
+    ),
+    StudyMaterial(
+      category: 'Programming',
+      title: 'Projects and Practice',
+      description: 'Learn animation principles and techniques.',
+      duration: '4 weeks',
+      steps: [
+        'Step 1: Introduction',
+        'Step 2: Basic Principles',
+        'Step 3: Advanced Topics'
+      ],
+    ),
+    StudyMaterial(
+      category: 'Designing',
+      title: 'Graphic Design Fundamentals',
+      description: 'Get started with graphic design.',
+      duration: '4 weeks',
+      steps: [
+        'Step 1: Introduction',
+        'Step 2: Basic Principles',
+        'Step 3: Advanced Topics'
+      ],
+    ),
+    StudyMaterial(
+      category: 'Designing',
+      title: 'UI/UX Design',
+      description: 'Learn user interface and user experience design.',
+      duration: '4 weeks',
+      steps: [
+        'Step 1: Introduction',
+        'Step 2: Basic Principles',
+        'Step 3: Advanced Topics'
+      ],
+    ),
+    StudyMaterial(
+      category: 'Cybersecurity',
+      title: 'Network Security',
+      description: 'Explore network security concepts.',
+      duration: '4 weeks',
+      steps: [
+        'Step 1: Introduction',
+        'Step 2: Basic Principles',
+        'Step 3: Advanced Topics'
+      ],
     ),
   ];
 
-  List<StudyMaterial> filteredStudyMaterials = [];
-
-  String selectedCategory = 'Cybersecurity';
+  String selectedCategory = 'Programming';
 
   @override
   void initState() {
@@ -65,32 +164,151 @@ class _StudyMaterialAppState extends State<StudyMaterialApp> {
     });
   }
 
+  void openFilterSkillsActionSheet() {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoActionSheet(
+          title: const Text(
+            'Filter Skills',
+            style: TextStyle(fontSize: 24),
+          ),
+          actions: studyMaterials
+              .map(
+                (material) => CupertinoActionSheetAction(
+                  onPressed: () {
+                    setState(() {
+                      selectedCategory = material.category;
+                      filterStudyMaterials();
+                    });
+                    Navigator.pop(context); // Close the action sheet
+                  },
+                  child: Text(material.category),
+                ),
+              )
+              .toList(),
+          cancelButton: CupertinoActionSheetAction(
+            onPressed: () {
+              Navigator.pop(context); // Close the action sheet
+            },
+            child: const Text('Cancel'),
+            isDefaultAction: true,
+          ),
+        );
+      },
+    );
+  }
+
+  void openMaterialDetailsPage(StudyMaterial material) {
+    Navigator.of(context).push(
+      CupertinoPageRoute(
+        builder: (context) {
+          return CupertinoPageScaffold(
+            navigationBar: CupertinoNavigationBar(
+              middle: Text(material.title),
+            ),
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Title: ${material.title}',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      'Description: ${material.description}',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      'Duration: ${material.duration}',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      'Steps to Complete:',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: material.steps.map((step) {
+                        return Padding(
+                          padding: const EdgeInsets.only(left: 16.0),
+                          child: Text(
+                            step,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar:const CupertinoNavigationBar(
-        middle: Text('Study Material App'),
+      navigationBar: CupertinoNavigationBar(
+        middle: const Text('Study Materials'),
       ),
       child: SafeArea(
         child: Column(
           children: [
-            Container(
-              padding:const EdgeInsets.all(16.0),
-              child: CupertinoPicker(
-                itemExtent: 40.0,
-                onSelectedItemChanged: (int index) {
-                  setState(() {
-                    selectedCategory = studyMaterials[index].category;
-                    filterStudyMaterials();
-                  });
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: CupertinoButton(
+                borderRadius: BorderRadius.circular(18),
+                pressedOpacity: .8,
+                color: Colors.white,
+                onPressed: () {
+                  openFilterSkillsActionSheet();
                 },
-                children: studyMaterials
-                    .map((material) => Text(material.category))
-                    .toSet()
-                    .toList()
-                    .map((category) {
-                  return category;
-                }).toList(),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      'Filter Skills: $selectedCategory',
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    ),
+                    const Icon(
+                      CupertinoIcons.down_arrow,
+                      color: Colors.black,
+                    ),
+                  ],
+                ),
               ),
             ),
             Expanded(
@@ -98,13 +316,21 @@ class _StudyMaterialAppState extends State<StudyMaterialApp> {
                 itemCount: filteredStudyMaterials.length,
                 itemBuilder: (context, index) {
                   final material = filteredStudyMaterials[index];
-                  return CupertinoListTile(
-                    title: Text(material.title),
-                    subtitle: Text(material.description),
-                    trailing: Icon(CupertinoIcons.right_chevron),
-                    onTap: () {
-                      
-                    },
+                  return Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Card(
+                      child: ListTile(
+                        title: Text(material.title),
+                        subtitle: Text(material.description),
+                        trailing: Icon(
+                          CupertinoIcons.right_chevron,
+                          color: Colors.black,
+                        ),
+                        onTap: () {
+                          openMaterialDetailsPage(material);
+                        },
+                      ),
+                    ),
                   );
                 },
               ),
@@ -120,10 +346,14 @@ class StudyMaterial {
   final String category;
   final String title;
   final String description;
+  final String duration;
+  final List<String> steps;
 
   StudyMaterial({
     required this.category,
     required this.title,
     required this.description,
+    required this.duration,
+    required this.steps,
   });
 }

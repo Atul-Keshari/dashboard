@@ -1,5 +1,5 @@
 import 'package:dashboard/theme/box_icons_icons.dart';
-import 'package:dashboard/theme/config.dart';
+import 'package:dashboard/ui/pages/video_page.dart';
 import 'package:dashboard/ui/widgets/card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' as material;
@@ -13,7 +13,7 @@ class _VideoPageState extends State<VideoPage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      backgroundColor: Colors().secondColor(1),
+      // backgroundColor: Colors().secondColor(1),
       navigationBar: CupertinoNavigationBar(
         automaticallyImplyLeading: true,
         previousPageTitle: "Back",
@@ -154,8 +154,13 @@ class _VideoPageState extends State<VideoPage> {
                           elevation: 0,
                           highlightElevation: 0,
                           backgroundColor: material.Colors.transparent,
-                          child: Icon(BoxIcons.bx_play, size: 40),
-                          onPressed: () {}),
+                          child: Icon(CupertinoIcons.play, size: 40),
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (ctx) => VideoPageNew()));
+                          }),
                     )),
               ],
             )),

@@ -69,7 +69,7 @@ class VideoCard extends material.StatelessWidget {
                         fontFamily: 'Red Hat Display',
                         fontSize: 10),
                   ),
-                  material.Icon(BoxIcons.bx_timer, size: 16),
+                  material.Icon(CupertinoIcons.timer, size: 16),
                 ],
               ),
             ),

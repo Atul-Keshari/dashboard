@@ -1,3 +1,4 @@
+import 'package:dashboard/gpt/screens/chat_screen.dart';
 import 'package:dashboard/gpt/shrey.dart';
 import 'package:dashboard/widgets/screens/category_screens.dart';
 import 'package:flutter/cupertino.dart';

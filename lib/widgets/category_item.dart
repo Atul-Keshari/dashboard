@@ -52,7 +52,7 @@ class CategoryItem extends StatelessWidget {
           Navigator.push(
             context,
             CupertinoPageRoute(
-              builder: (context) => TestAssignmentScreen(),
+              builder: (context) => QuizScreen(),
             ),
           );
         } else if (id == 'c7') {
@@ -66,7 +66,7 @@ class CategoryItem extends StatelessWidget {
           Navigator.push(
             context,
             CupertinoPageRoute(
-              builder: (context) => OrganizationListScreen(),
+              builder: (context) => HelpAndSupportPage(),
             ),
           );
         }
@@ -105,4 +105,107 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+// import 'package:dashboard/widgets/screens/help_support.dart';
+// import 'package:dashboard/widgets/screens/job_opp.dart';
+// import 'package:flutter/cupertino.dart';
+
+// class CategoryItem extends StatelessWidget {
+//   final String id;
+//   final String title;
+//   final Color color;
+
+//   CategoryItem(this.id, this.title, this.color);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return CupertinoButton(
+//       onPressed: () {
+//         navigateToScreen(context);
+//       },
+//       padding: EdgeInsets.all(0),
+//       child: Container(
+//         padding: EdgeInsets.all(15),
+//         child: Text(
+//           title,
+//           style: TextStyle(
+//             color: CupertinoColors.white,
+//             fontSize: 18,
+//             fontWeight: FontWeight.bold,
+//           ),
+//         ),
+//         decoration: BoxDecoration(
+//           gradient: LinearGradient(
+//             colors: [
+//               color.withOpacity(0.8),
+//               color,
+//             ],
+//             begin: Alignment.topLeft,
+//             end: Alignment.bottomRight,
+//           ),
+//           borderRadius: BorderRadius.circular(15),
+//         ),
+//       ),
+//     );
+//   }
+
+//   void navigateToScreen(BuildContext context) {
+//     Widget screen;
+
+//     switch (id) {
+//       case 'c1':
+//         screen = CupertinoPageRoute(
+//           builder: (context) => StudyMaterialApp(),
+//         ) as Widget;
+//         break;
+//       case 'c2':
+//         screen = CupertinoPageRoute(
+//           builder: (context) => FilterScreen(),
+//         ) as Widget;
+//         break;
+//       case 'c3':
+//         screen = CupertinoPageRoute(
+//           builder: (context) => MentorAssignmentScreen(),
+//         ) as Widget;
+//         break;
+//       case 'c4':
+//         screen = CupertinoPageRoute(
+//           builder: (context) => TestAssignmentScreen(),
+//         ) as Widget;
+//         break;
+//       case 'c5':
+//         screen = CupertinoPageRoute(
+//           builder: (context) => Home(),
+//         ) as Widget;
+//         break;
+//       case 'c6':
+//         screen = CupertinoPageRoute(
+//           builder: (context) => OrganizationListScreen(),
+//         ) as Widget;
+//         break;
+//       case 'c7':
+//         screen = CupertinoPageRoute(
+//           builder: (context) => SkillSelectionScreen(),
+//         ) as Widget;
+//         break;
+//       default:
+//         return;
+//     }
+
+//     Navigator.of(context).push(screen as Route<Object?>);
+//   }
+// }
+
+// class HomeScreen extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return CupertinoPageScaffold(
+//       navigationBar: CupertinoNavigationBar(
+//         middle: Text('Home'),
+//       ),
+//       child: Center(
+//         child: Text('This is the Home Screen.'),
+//       ),
+//     );
+//   }
+// }
 

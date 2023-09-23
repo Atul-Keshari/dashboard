@@ -148,8 +148,8 @@ class _OnboardingState extends State<Onboarding> {
                   child: CupertinoButton(
                     child: Icon(
                       pageNumber == 1
-                          ? BoxIcons.bx_check
-                          : BoxIcons.bx_chevron_right,
+                          ? CupertinoIcons.check_mark
+                          : CupertinoIcons.right_chevron,
                       color: Color(0xFFFFFFFF),
                       size: 30,
                     ),

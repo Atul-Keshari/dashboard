@@ -45,7 +45,7 @@ class ChatWidget extends StatelessWidget {
                       : shouldAnimate
                       ? DefaultTextStyle(
                     style: const TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontWeight: FontWeight.w700,
                         fontSize: 16),
                     child: AnimatedTextKit(
@@ -62,7 +62,7 @@ class ChatWidget extends StatelessWidget {
                       : Text(
                     msg.trim(),
                     style: const TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontWeight: FontWeight.w700,
                         fontSize: 16),
                   ),
@@ -75,14 +75,14 @@ class ChatWidget extends StatelessWidget {
                   children: const [
                     Icon(
                       Icons.thumb_up_alt_outlined,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                     SizedBox(
                       width: 5,
                     ),
                     Icon(
                       Icons.thumb_down_alt_outlined,
-                      color: Colors.white,
+                      color: Colors.black,
                     )
                   ],
                 ),

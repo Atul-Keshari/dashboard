@@ -27,12 +27,14 @@ class SectionHeader extends StatelessWidget {
           text,
           style: TextStyle().copyWith(
             fontSize: 17.0,
+            color: CupertinoColors.black,
+            decoration: TextDecoration.none,
           ),
         ),
         Spacer(),
         CupertinoButton(
           child:
-              Icon(BoxIcons.bx_chevron_right, color: material.Colors.lightBlue),
+              Icon(CupertinoIcons.right_chevron, color: material.Colors.lightBlue),
           onPressed: onPressed as void Function()?,
         )
       ],

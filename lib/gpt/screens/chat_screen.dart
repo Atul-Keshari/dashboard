@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
@@ -54,7 +53,10 @@ class _ChatScreenState extends State<ChatScreen> {
           padding: const EdgeInsets.all(8.0),
           child: Image.asset(AssetsManager.openaiLogo),
         ),
-        title: const Text("ChatSupport"),
+        title: const Text(
+          "ChatSupport",
+          style: TextStyle(color: Colors.black),
+        ),
         actions: [
           IconButton(
             onPressed: () async {
@@ -78,13 +80,13 @@ class _ChatScreenState extends State<ChatScreen> {
                       chatIndex: chatProvider.getChatList[index]
                           .chatIndex, //chatList[index].chatIndex,
                       shouldAnimate:
-                      chatProvider.getChatList.length - 1 == index,
+                          chatProvider.getChatList.length - 1 == index,
                     );
                   }),
             ),
             if (_isTyping) ...[
               const SpinKitThreeBounce(
-                color: Colors.white,
+                color: Colors.black,
                 size: 18,
               ),
             ],
@@ -120,7 +122,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         },
                         icon: const Icon(
                           Icons.send,
-                          color: Colors.white,
+                          color: Colors.black,
                         ))
                   ],
                 ),
@@ -141,7 +143,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Future<void> sendMessageFCT(
       {required ModelsProvider modelsProvider,
-        required ChatProvider chatProvider}) async {
+      required ChatProvider chatProvider}) async {
     if (_isTyping) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

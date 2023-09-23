@@ -1,5 +1,6 @@
 import 'package:dashboard/ui/pages/home.dart';
 import 'package:dashboard/ui/pages/onboarding1.dart';
+import 'package:dashboard/ui/pages/video.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -53,3 +54,5 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
+

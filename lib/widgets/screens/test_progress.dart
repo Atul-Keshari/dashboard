@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 class Test {
   final String subject;
   final String grade;
@@ -18,184 +19,188 @@ class Test {
   });
 }
 
-class TestAssignmentApp extends StatelessWidget {
-  const TestAssignmentApp({super.key});
-
+class QuizScreen extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return CupertinoApp(
-      home: TestAssignmentScreen(),
-    );
-  }
+  _QuizScreenState createState() => _QuizScreenState();
 }
 
-class TestAssignmentScreen extends StatefulWidget {
-  const TestAssignmentScreen({super.key});
+class _QuizScreenState extends State<QuizScreen> {
+  final Map<String, List<Map<String, dynamic>>> sections = {
+    'Physics': [
+      {
+        'questionText':
+            'Inertia is the tendency of an object to resist changes in its state of motion.',
+        'answers': [
+          {'text': 'Option A', 'correct': true},
+          {'text': 'Option B', 'correct': false},
+        ],
+      },
+      {
+        'questionText':
+            'The speed of light in a vacuum is approximately 186,282 miles per second (299,792,458 meters per second).',
+        'answers': [
+          {'text': 'Option A', 'correct': false},
+          {'text': 'Option B', 'correct': true},
+        ],
+      },
+      // Add more physics questions
+    ],
+    'Chemistry': [
+      {
+        'questionText':
+            'Water boils at a higher temperature at higher altitudes compared to sea level.',
+        'answers': [
+          {'text': 'Option A', 'correct': true},
+          {'text': 'Option B', 'correct': false},
+        ],
+      },
+      {
+        'questionText': 'Sound travels faster through water than through air.',
+        'answers': [
+          {'text': 'Option A', 'correct': false},
+          {'text': 'Option B', 'correct': true},
+        ],
+      },
+      // Add more chemistry questions
+    ],
+    'Maths': [
+      {
+        'questionText':
+            'The commutative property of addition states that a + b = b + a for all real numbers a and b.',
+        'answers': [
+          {'text': 'Option A', 'correct': true},
+          {'text': 'Option B', 'correct': false},
+        ],
+      },
+      {
+        'questionText': 'The sum of any two even numbers is always even.',
+        'answers': [
+          {'text': 'Option A', 'correct': false},
+          {'text': 'Option B', 'correct': true},
+        ],
+      },
+      // Add more maths questions
+    ],
+  };
 
-  @override
-  _TestAssignmentScreenState createState() => _TestAssignmentScreenState();
-}
+  Map<String, int> scores = {
+    'Physics': 0,
+    'Chemistry': 0,
+    'Maths': 0,
+  };
 
-class _TestAssignmentScreenState extends State<TestAssignmentScreen> {
-  String selectedGrade = 'Class 10';
-  String selectedSubject = 'Mathematics';
-
-  List<Test> tests = [
-    Test(
-      subject: 'Mathematics',
-      grade: 'Class 10',
-      questions: [
-        'Question 1: What is 2 + 2?',
-        'Question 2: What is 5 - 3?',
-        // Add more questions
-      ],
-      correctAnswers: ['4', '2'],
-      userAnswers: [],
-      score: 0,
-    ),
-    // Add more tests for different subjects
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    // Initialize selected tests
-    filterTests();
-  }
-
-  // Function to filter tests based on selected grade and subject
-  void filterTests() {
-    setState(() {
-      tests = tests
-          .where((test) =>
-              test.grade == selectedGrade && test.subject == selectedSubject)
-          .toList();
-    });
-  }
-
-  // Function to calculate and set the score for the selected test
-  void calculateScore(Test test) {
-    double totalQuestions = test.questions.length.toDouble();
-    double correctAnswers = 0;
-
-    for (int i = 0; i < test.questions.length; i++) {
-      if (test.userAnswers[i] == test.correctAnswers[i]) {
-        correctAnswers++;
-      }
+  void answerQuestion(bool isCorrect, String section) {
+    if (isCorrect) {
+      setState(() {
+        scores[section] = scores[section]! + 1;
+      });
     }
-
-    test.score = (correctAnswers / totalQuestions) * 100;
   }
 
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text('Test Assignment'),
-        leading: CupertinoButton(
-          padding: EdgeInsets.all(0),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Icon(CupertinoIcons.back),
-        ),
+      navigationBar:CupertinoNavigationBar(
+        middle: Text('Test Your Progress'),
       ),
-      child: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.all(16.0),
-              child: CupertinoPicker(
-                itemExtent: 40.0,
-                onSelectedItemChanged: (int index) {
-                  setState(() {
-                    selectedGrade = ['Class 9', 'Class 10', 'Class 11'][index];
-                    filterTests();
-                  });
-                },
-                children: ['Class 9', 'Class 10', 'Class 11'].map((grade) {
-                  return Text(grade);
-                }).toList(),
+      child: ListView(
+        children: sections.keys.map((section) {
+          return Card(
+            elevation: 2.0,
+            margin: EdgeInsets.all(10.0),
+            child: ExpansionTile(
+              title: Text(
+                section,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+              children: [
+                QuizSection(
+                  sectionName: section,
+                  questions: sections[section]!,
+                  answerHandler: (isCorrect) =>
+                      answerQuestion(isCorrect, section),
+                  score: scores[section]!,
+                ),
+              ],
             ),
-            Container(
-              padding: EdgeInsets.all(16.0),
-              child: CupertinoPicker(
-                itemExtent: 40.0,
-                onSelectedItemChanged: (int index) {
-                  setState(() {
-                    selectedSubject =
-                        ['Mathematics', 'Science', 'History'][index];
-                    filterTests();
-                  });
-                },
-                children: ['Mathematics', 'Science', 'History'].map((subject) {
-                  return Text(subject);
-                }).toList(),
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: tests.length,
-                itemBuilder: (context, index) {
-                  final test = tests[index];
-                  return Card(
-                    child: Column(
-                      children: [
-                        Text(
-                          'Subject: ${test.subject}',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        for (var i = 0; i < test.questions.length; i++)
-                          Column(
-                            children: [
-                              Text(test.questions[i]),
-                              CupertinoTextField(
-                                placeholder: 'Your Answer',
-                                onChanged: (value) {
-                                  test.userAnswers[i] = value;
-                                },
-                              ),
-                            ],
-                          ),
-                        CupertinoButton(
-                          onPressed: () {
-                            calculateScore(test);
-                            showResultDialog(test);
-                          },
-                          child: Text('Submit'),
-                        ),
-                        if (test.score > 0)
-                          Text('Score: ${test.score.toStringAsFixed(1)}%'),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
+          );
+        }).toList(),
       ),
     );
   }
+}
 
-  void showResultDialog(Test test) {
-    showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-          title: Text('Test Result'),
-          content: Text('Score: ${test.score.toStringAsFixed(1)}%'),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: Text('Close'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
+class QuizSection extends StatelessWidget {
+  final String sectionName;
+  final List<Map<String, dynamic>> questions;
+  final Function(bool) answerHandler;
+  final int score;
+
+  QuizSection({
+    required this.sectionName,
+    required this.questions,
+    required this.answerHandler,
+    required this.score,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      children: [
+        Center(
+          child: Text(
+            'Total Score: $score',
+            style: TextStyle(fontSize: 18),
+          ),
+        ),
+        ...questions.map((question) {
+          return QuizQuestion(
+            questionText: question['questionText'],
+            answers: question['answers'],
+            answerHandler: answerHandler,
+          );
+        }),
+      ],
+    );
+  }
+}
+
+class QuizQuestion extends StatelessWidget {
+  final String questionText;
+  final List<Map<String, dynamic>> answers;
+  final Function(bool) answerHandler;
+
+  QuizQuestion({
+    required this.questionText,
+    required this.answers,
+    required this.answerHandler,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            questionText,
+            style: TextStyle(fontSize: 16),
+          ),
+          SizedBox(height: 10),
+          ...answers.map((answer) {
+            return ElevatedButton(
+              onPressed: () => answerHandler(answer['correct']),
+              child: Text(answer['text']),
+            );
+          }),
+        ],
+      ),
     );
   }
 }
